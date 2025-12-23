@@ -1,0 +1,174 @@
+\documentclass[aspectratio=169]{beamer}
+
+% --- Configurações de Pacotes ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{graphicx}
+\usepackage{ragged2e}
+
+% --- Definição das Cores da V360 ---
+\definecolor{v360purple}{RGB}{120, 61, 188}
+\definecolor{v360orange}{RGB}{255, 92, 19}
+
+% --- Personalização do Tema (Tema Madrid modificado) ---
+\usetheme{Madrid}
+\useinnertheme{circles} % Bolinhas nos tópicos (fica mais moderno)
+
+% Aplicando as cores na estrutura do Beamer
+\setbeamercolor{palette primary}{bg=v360purple,fg=white}
+\setbeamercolor{palette secondary}{bg=v360purple!80!white,fg=white}
+\setbeamercolor{palette tertiary}{bg=v360purple!60!white,fg=white}
+\setbeamercolor{palette quaternary}{bg=v360purple,fg=white}
+
+\setbeamercolor{structure}{fg=v360purple} % Cor padrão de títulos e itens
+\setbeamercolor{title in head/foot}{bg=v360purple,fg=white}
+\setbeamercolor{author in head/foot}{bg=v360orange,fg=white} % Detalhe laranja no rodapé
+\setbeamercolor{date in head/foot}{bg=v360purple,fg=white}
+
+% Cores de Alerta e Blocos
+\setbeamercolor{alerted text}{fg=v360orange}
+\setbeamercolor{block title}{bg=v360purple,fg=white}
+\setbeamercolor{block title alerted}{bg=v360orange,fg=white}
+
+% Personalizando os marcadores (itemize) para serem laranja
+\setbeamercolor{item}{fg=v360orange}
+\setbeamercolor{subitem}{fg=v360orange}
+
+% --- Dados da Apresentação ---
+\title[V360 Talk]{V360 Talk: Inteligência Fiscal em Tempo Real}
+\subtitle{Proposta de Solução Inovadora - Vaga Desenvolvedor Full-Stack Jr}
+\author{Pedro Lucas Garcia}
+\institute[Candidato]{Processo Seletivo V360}
+\date{\today}
+
+% --- Início do Documento ---
+\begin{document}
+
+% Slide 1: Capa
+{
+\setbeamercolor{background canvas}{bg=v360purple}
+\setbeamercolor{title}{fg=white}
+\setbeamercolor{subtitle}{fg=v360orange}
+\setbeamercolor{author}{fg=white}
+\setbeamercolor{institute}{fg=white!80!v360purple}
+\setbeamercolor{date}{fg=white}
+\begin{frame}[plain]
+    \centering
+    \vfill
+
+    \setbeamercolor{covercard}{bg=white,fg=black}
+    \begin{beamercolorbox}[rounded=true,sep=1em]{covercard}
+        \centering
+        {\Huge\bfseries\textcolor{v360purple}{V360 Talk}}\\[0.4em]
+        {\Large\textcolor{v360orange}{Inteligência Fiscal em Tempo Real}}\\[0.6em]
+        \rule{0.6\textwidth}{0.6pt}\\[0.6em]
+        \textbf{\textcolor{black}{Pedro Lucas Garcia}} \\
+        \small\textit{\textcolor{black!70}{Candidato a Desenvolvedor Full-Stack Jr}} \\
+        \small\textcolor{black!70}{\today}
+    \end{beamercolorbox}
+
+    \vfill
+\end{frame}
+}
+
+% Slide 2: O Problema
+\begin{frame}{O Desafio: Invisibilidade de Dados}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \textbf{\textcolor{v360purple}{Cenário Atual:}}
+        \vspace{0.3cm}
+        \begin{itemize}
+            \item<1-> Gestores precisam de respostas rápidas sobre impostos e gastos.
+            \item<2-> Relatórios fiscais são técnicos, complexos e estáticos.
+            \item<3-> Dependência do time financeiro para extrair dados simples.
+        \end{itemize}
+        
+        \column{0.5\textwidth}
+        \begin{alertblock}{A Dor do Cliente}
+            "Quanto tempo um CEO perde esperando uma planilha para tomar uma decisão estratégica?"
+        \end{alertblock}
+    \end{columns}
+\end{frame}
+
+% Slide 3: A Solução
+\begin{frame}{A Solução: V360 Talk}
+    \begin{center}
+        \Large \textbf{\textcolor{v360purple}{O que é?}}
+    \end{center}
+    
+    \vspace{0.5cm}
+    \justifying
+    Um assistente inteligente integrado à plataforma V360 que democratiza o acesso aos dados fiscais através de linguagem natural.
+    
+    \vspace{0.5cm}
+    \begin{itemize}
+        \item[\textcolor{v360orange}{\textbf{\checkmark}}] \textbf{Simples:} Interface de chat (tipo ChatGPT).
+        \item[\textcolor{v360orange}{\textbf{\checkmark}}] \textbf{Rápido:} Respostas instantâneas e visuais.
+        \item[\textcolor{v360orange}{\textbf{\checkmark}}] \textbf{Integrado:} Usa a base real da V360.
+    \end{itemize}
+\end{frame}
+
+% Slide 4: Arquitetura Técnica (O Pulo do Gato)
+\begin{frame}{Arquitetura da Solução (Stack V360)}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.5\textwidth]{../docs/diagrama-de-arquitetura.png}
+        \caption{\footnotesize Fluxo Assíncrono: Rails + Sidekiq + Redis + ActionCable}
+    \end{figure}
+\end{frame}
+
+% Slide 5: Diagrama de Blocos
+\begin{frame}{Arquitetura de Blocos (Stack V360)}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.2\textwidth]{../docs/diagrama-de-blocos.png}
+        \caption{\footnotesize Componentes Principais da Solução}
+    \end{figure}
+\end{frame}
+
+% Slide 6: Diagrama de Sequência
+\begin{frame}[c]{Diagrama de Sequência (Stack V360)}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{../docs/diagrama-de-sequencia.png}
+        \caption{\footnotesize Fluxo de Dados do Pedido à Resposta}
+    \end{figure}
+\end{frame}
+
+% Slide 5: Detalhes da Implementação
+\begin{frame}{Por que essa Stack?}
+    Explorando os diferenciais da vaga para garantir \textbf{\textcolor{v360orange}{performance}}:
+    
+    \vspace{0.5cm}
+    \begin{itemize}
+        \setlength\itemsep{0.5em} % Aumenta espaço entre itens
+        \item \textbf{Ruby on Rails (API):} Robustez e padrão MVC.
+        \item \textbf{Sidekiq + Redis:} Processamento em \textit{background} para não travar a UI (\texttt{HTTP 202}).
+        \item \textbf{ActionCable (WebSocket):} Entrega da resposta em tempo real.
+        \item \textbf{PostgreSQL:} Segurança e integridade dos dados fiscais.
+    \end{itemize}
+\end{frame}
+
+% Slide 6: Impacto e Encerramento
+\begin{frame}{Impacto para a V360}
+    \begin{columns}
+        \column{0.6\textwidth}
+        \textbf{\textcolor{v360purple}{Benefícios:}}
+        \begin{enumerate}
+            \item \textbf{Inovação:} Coloca a V360 na era da IA Generativa.
+            \item \textbf{Retenção:} O cliente resolve problemas em segundos.
+            \item \textbf{Escalabilidade:} Arquitetura pronta para AWS.
+        \end{enumerate}
+        
+        \column{0.4\textwidth}
+        \centering
+        \vspace{1cm}
+        \large \textbf{\textcolor{v360purple}{Obrigado!}}\\
+        \vspace{0.5cm}
+        \small Pedro Lucas Garcia \\
+        \textit{Candidato a Desenvolvedor Full-Stack Jr}
+    \end{columns}
+\end{frame}
+
+\end{document}

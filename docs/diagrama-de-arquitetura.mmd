@@ -1,0 +1,57 @@
+%%{init: {"theme":"base", "themeVariables": {"background":"#ffffff"}}}%%
+graph TD
+    %% --- Definição dos Nós ---
+    
+    subgraph Client_Side ["📱 Client Side (Front-End)"]
+        Browser["💻 Browser / App<br>(React/JS/HTML5)"]
+    end
+
+    subgraph AWS_Cloud ["☁️ V360 Cloud Infrastructure (AWS)"]
+        style AWS_Cloud fill:#f2f2f2,stroke:#orange,stroke-width:2px
+        
+        subgraph App_Layer ["⚙️ Application Layer"]
+            Rails_API["💎 Rails API<br>(REST & WebSocket)"]
+            Sidekiq["👷 Sidekiq Worker<br>(Job Processing)"]
+        end
+        
+        subgraph Data_Layer ["🗄️ Data Layer"]
+            Redis[("🚀 Redis<br>(Cache & Pub/Sub)")]
+            Postgres[("🐘 PostgreSQL<br>(Persistência)")]
+        end
+    end
+
+    subgraph External_Services ["🌐 External Services"]
+        OpenAI["🤖 AI Service<br>(LLM Model)"]
+        SEFAZ["🏢 SEFAZ / Gov<br>(Notas Fiscais)"]
+    end
+
+    %% --- Conexões ---
+    
+    %% Fluxo do Cliente
+    Browser <==>|HTTPS / WSS| Rails_API
+    
+    %% Fluxo da Aplicação
+    Rails_API -->|Read/Write| Postgres
+    Rails_API -->|Enqueue Jobs| Redis
+    
+    %% Fluxo do Worker (Assíncrono)
+    Redis -->|Dequeue Jobs| Sidekiq
+    Sidekiq -->|Salva Resultados| Postgres
+    
+    %% Notificação em Tempo Real (ActionCable)
+    Sidekiq -.->|Pub Result| Redis
+    Redis -.->|Sub Notification| Rails_API
+
+    %% Integrações Externas
+    Sidekiq <-->|API Request| OpenAI
+    Sidekiq -.->|Validação| SEFAZ
+
+    %% --- Estilização ---
+    classDef tech fill:#fff,stroke:#333,stroke-width:2px;
+    class Browser,Rails_API,Sidekiq,Redis,Postgres,OpenAI,SEFAZ tech;
+    
+    %% Cores Específicas
+    style Rails_API stroke:#CC0000,stroke-width:3px
+    style Sidekiq stroke:#7f1016,stroke-width:3px
+    style Postgres stroke:#336791,stroke-width:3px
+    style Redis stroke:#D81C26,stroke-width:3px

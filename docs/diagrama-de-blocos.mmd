@@ -1,0 +1,20 @@
+%%{init: {"theme":"base", "themeVariables": {"background":"#ffffff"}}}%%
+graph TD
+    A["Front-End<br>(HTML/JS/React)"] -->|01: Envia Pergunta| B["Back-End<br>(Ruby on Rails API)"]
+    B -->|02: Enfileira Job| C["Redis<br>(Fila de Tarefas / PubSub)"]
+    C -->|03: Pega Tarefa| D["Sidekiq Worker<br>(Processamento Assíncrono)"]
+    D <-->|04: Interpreta Texto| E["API de IA<br>(OpenAI)"]
+    D <-->|05: Consulta Dados| F["PostgreSQL<br>(Base Fiscal V360)"]
+
+    D -.->|06: Publica Resultado| C
+    C -.->|07: Resposta via WebSocket| A
+    
+    %% Estilização
+    style B fill:#CC0000,color:white
+    style C fill:#D81C26,color:white
+    style D fill:#7f1016,color:white
+    style F fill:#336791,color:white
+    
+    %% Ajuste de cor das linhas de retorno para destacar
+    linkStyle 5 stroke:#D81C26,stroke-width:2px,stroke-dasharray: 5 5;
+    linkStyle 6 stroke:#D81C26,stroke-width:2px,stroke-dasharray: 5 5;

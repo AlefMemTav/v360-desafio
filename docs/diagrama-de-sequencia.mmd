@@ -1,0 +1,36 @@
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Architects Daughter", "background":"#ffffff"}}}%%
+sequenceDiagram
+    actor Agent as Agente / Usuário
+    participant Browser as Navegador
+    participant API as API Ruby on Rails
+    participant Redis as Redis
+    participant Worker as Worker Sidekiq
+    participant AI as API de Inteligência Artificial
+    participant DB as Banco PostgreSQL
+
+    Note over Agent, Browser: 1. Início do Fluxo
+    Agent->>Browser: Faz pergunta / Interage
+    Browser->>API: Envia pergunta (HTTP POST)
+    
+    activate API
+    API->>Redis: Enfileira Job
+    API-->>Browser: HTTP 202 Accepted
+    deactivate API
+    
+    Redis->>Worker: Disponibiliza Job
+    
+    activate Worker
+    Note over Worker, AI: Processamento Assíncrono
+    Worker->>AI: Interpreta a pergunta
+    AI-->>Worker: Resposta IA
+    
+    Worker->>DB: Busca dados fiscais
+    DB-->>Worker: Dados Fiscais
+    
+    Note over Worker, API: 2. Retorno (Pub/Sub)
+    Worker-->>Redis: Job Processado (Pub/Sub)
+    deactivate Worker
+    
+    Redis-->>API: Notifica Término (ActionCable)
+    API->>Browser: Resposta Final via WebSocket
+    Browser->>Agent: Exibe resposta
